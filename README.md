@@ -1,26 +1,4 @@
-# Maintenance Services Platform (Ommal)
 
-![Flutter](https://img.shields.io/badge/Flutter-3.7.0-02569B?logo=flutter)
-![Firebase](https://img.shields.io/badge/Firebase-Enabled-FFCA28?logo=firebase)
-![Platform](https://img.shields.io/badge/Platform-iOS%20|%20Android%20|%20Web-lightgrey)
-![License](https://img.shields.io/badge/License-University%20Project-blue)
-
-A comprehensive mobile application connecting customers with professional maintenance technicians across multiple service categories. This platform streamlines the process of requesting, managing, and tracking home maintenance services with real-time updates and integrated rating systems.
-
-## 📋 Table of Contents
-
-- [Overview](#overview)
-- [Key Features](#key-features)
-- [Architecture & Technology Stack](#architecture--technology-stack)
-- [User Roles](#user-roles)
-- [Service Categories](#service-categories)
-- [Installation & Setup](#installation--setup)
-- [Firebase Configuration](#firebase-configuration)
-- [Project Structure](#project-structure)
-- [Application Screens](#application-screens)
-- [Data Models](#data-models)
-- [Future Enhancements](#future-enhancements)
-- [Author](#author)
 
 ## 🎯 Overview
 
