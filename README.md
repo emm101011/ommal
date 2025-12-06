@@ -2,7 +2,7 @@
 
 ## 🎯 Overview
 
-A Flutter-based maintenance services platform connecting customers with technicians. The app features three user roles (Customer, Technician, Administrator) with real-time order tracking, ratings system, and multi-service category support.
+A Flutter-based maintenance services platform connecting customers with technicians. The app features three user roles (Customer, Technician) with real-time order tracking, ratings system, and multi-service category support.
 
 ## ✨ Key Features
 
