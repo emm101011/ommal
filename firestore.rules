@@ -1,0 +1,91 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // قواعد مجموعة المستخدمين
+    match /users/{userId} {
+      // السماح بالقراءة للمستخدم المسجل فقط
+      allow read: if request.auth != null;
+      
+      // السماح بالإنشاء: المستخدم المسجل يمكنه إنشاء ملفه الشخصي
+      allow create: if request.auth != null && 
+        request.auth.uid == userId;
+      
+      // السماح بالتحديث: المستخدم نفسه أو المدير
+      allow update: if request.auth != null && 
+        (request.auth.uid == userId || 
+         get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin');
+      
+      // السماح بالحذف: المدير فقط
+      allow delete: if request.auth != null && 
+        get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin';
+    }
+    
+    // قواعد مجموعة الطلبات
+    match /orders/{orderId} {
+      // السماح بالقراءة للجميع المسجلين
+      allow read: if request.auth != null;
+      
+      // السماح بالكتابة للعميل صاحب الطلب أو الفني المعين أو المدير
+      allow write: if request.auth != null && 
+        (request.auth.uid == resource.data.customerId || 
+         request.auth.uid == resource.data.technicianId ||
+         get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin');
+      
+      // السماح بإنشاء طلب جديد لأي مستخدم مسجل
+      allow create: if request.auth != null;
+    }
+    
+    // قواعد مجموعة الإشعارات
+    match /notifications/{notificationId} {
+      // السماح بالقراءة لصاحب الإشعار فقط
+      allow read: if request.auth != null && 
+        request.auth.uid == resource.data.userId;
+      
+      // السماح بالكتابة للنظام والمدراء فقط
+      allow write: if request.auth != null && 
+        get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin';
+      
+      // السماح بالإنشاء للنظام
+      allow create: if request.auth != null;
+    }
+    
+    // قواعد مجموعة التقييمات
+    match /ratings/{ratingId} {
+      // السماح بالقراءة للجميع
+      allow read: if request.auth != null;
+      
+      // السماح بالكتابة لصاحب التقييم فقط
+      allow write: if request.auth != null && 
+        request.auth.uid == resource.data.customerId;
+      
+      // السماح بإنشاء تقييم جديد
+      allow create: if request.auth != null;
+    }
+    
+    // قواعد مجموعة الدردشات
+    match /chats/{chatId} {
+      // السماح بالقراءة للمشاركين في المحادثة فقط
+      allow read: if request.auth != null && 
+        (request.auth.uid in resource.data.participants);
+      
+      // السماح بالكتابة للمشاركين فقط
+      allow write: if request.auth != null && 
+        (request.auth.uid in resource.data.participants);
+      
+      // السماح بإنشاء محادثة جديدة
+      allow create: if request.auth != null;
+      
+      // قواعد الرسائل الفرعية
+      match /messages/{messageId} {
+        allow read: if request.auth != null && 
+          (request.auth.uid in get(/databases/$(database)/documents/chats/$(chatId)).data.participants);
+        
+        allow write: if request.auth != null && 
+          (request.auth.uid in get(/databases/$(database)/documents/chats/$(chatId)).data.participants);
+        
+        allow create: if request.auth != null;
+      }
+    }
+  }
+}

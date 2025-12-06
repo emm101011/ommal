@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "156137851572",
+    "project_id": "ommal-886a1",
+    "storage_bucket": "ommal-886a1.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:156137851572:android:c2850f9c4f37dfebeb65e1",
+        "android_client_info": {
+          "package_name": "com.tareq.ommal"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC-cre0LE3EVRU8f3d8_t7KAKP3OaP3-hU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
